@@ -103,8 +103,10 @@ projeto-aplicado-longitudinal/
 #
 **Vídeo M1**
 
-Acesso em: 
+Acesso em:
+[M1 - Detecção de drones e aves em imagens via PDI](https://youtu.be/x-ZY_v2nNL8?si=anc7oI2MPPl8rBiv)
 #
+
 **Documentação Adicional**
 
 [Proposta](./docs/proposta.md)
