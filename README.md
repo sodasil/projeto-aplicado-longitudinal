@@ -72,7 +72,7 @@ Algumas imagens foram retiradas de [Pexels](https://www.pexels.com) sob a [Licen
 
 **Estágio atual do projeto**
 
-Atualmente o projeto está na fase da M1: Definição da proposta, estruturação do repositório, seleção das imagens iniciais e especificação da arquitetura do pipeline.
+Como complemento à proposta da M1, foi preparado um script para medir manualmente as dimensões dos objetos nas 15 imagens, conforme a prioridade indicada pelo professor. A anotação ainda precisa ser executada; não há conclusão sobre a separabilidade entre aves e drones. O procedimento, a referência ao script e suas limitações estão na seção “Resposta ao feedback da M1” da [proposta](./docs/proposta.md).
 #
 
 **Organização do Repositório**
@@ -82,12 +82,14 @@ O repositório está sendo organizado no esquema:
 ```text
 projeto-aplicado-longitudinal/
 ├── README.md
+├── requirements.txt
+├── src/
+│   └── measure_objects.py
 ├── docs/
 │   └── proposta.md
 ├── images/
 │   ├── input/
 │   └── results/
-├── src/                 # quando já houver código
 ├── notebooks/           # quando aplicável
 ├── tests/               # quando aplicável
 ├── LICENSE              # quando aplicável
@@ -99,7 +101,23 @@ projeto-aplicado-longitudinal/
 
 - Linguagem: Python
 
-- Bibliotecas: OpenCV e NumPy
+- Bibliotecas: OpenCV
+
+**Medição inicial**
+
+O procedimento de anotação e interpretação está documentado na proposta. Para
+executá-lo, crie um ambiente isolado e instale as dependências:
+
+```bash
+python3 -m venv .venv
+.venv/bin/python -m pip install -r requirements.txt
+.venv/bin/python src/measure_objects.py --annotate
+.venv/bin/python src/measure_objects.py --analyze
+```
+
+O script grava as anotações em `data/object_annotations.csv` e gera as medidas
+em `results/`. A área reportada é a da caixa delimitadora, não a área da
+silhueta.
 #
 **Vídeo M1**
 

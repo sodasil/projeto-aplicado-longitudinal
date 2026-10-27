@@ -59,7 +59,7 @@ flowchart LR
 
 ## 5. Imagens e dados
 
-O conjunto inicial de dados do projeto está composto por 15 imagens de referência armazenadas em `images/input`, com variação em:
+O conjunto inicial de dados do projeto está composto por 15 imagens armazenadas em `images/input`, com variação em:
 
 - fundo de céu com tonalidades diferentes;
 - presença ou ausência de aves;
@@ -68,7 +68,9 @@ O conjunto inicial de dados do projeto está composto por 15 imagens de referên
 - diferentes ângulos de captura;
 - diferentes níveis de contraste e iluminação.
 
-Essas imagens foram selecionadas para representar a diversidade de cenários relevantes ao problema e permitir a validação inicial do pipeline proposto.
+Essas imagens foram selecionadas para representar cenários relevantes ao
+problema e permitir uma caracterização preliminar dos dados. Ainda não há
+referência anotada por objeto nem validação do pipeline.
 
 ### Origem das imagens
 
@@ -154,26 +156,65 @@ A estrutura prevista do projeto inclui:
 
 ## 8. Estudo inicial de viabilidade
 
-A proposta é considerada viável com base em alguns elementos observados até o momento:
+A proposta é viável como investigação incremental, mas a viabilidade da
+classificação ainda depende de evidência experimental:
 
-- as imagens disponíveis apresentam objetos suficientemente distintos para permitir inspeção manual e análise inicial;
+- a inspeção visual confirma a presença de objetos de interesse, mas ainda não demonstra que há resolução suficiente para descrevê-los geometricamente nem que aves e drones sejam separáveis;
 - o problema envolve processamento e análise de imagens de maneira direta, sem depender de dados complexos ou de sensores especializados;
 - existem bibliotecas e métodos bem estabelecidos em visão computacional, especialmente em OpenCV, que permitem realizar pré-processamento, limiarização, segmentação e extração de contornos;
-- a diferença entre objetos voadores e o fundo do céu sugere que uma abordagem baseada em segmentação e descritores pode ser implementada de forma incremental;
+- a diferença entre objetos voadores e o fundo do céu motiva a hipótese de uma abordagem baseada em segmentação e descritores, que precisa ser testada;
 - o projeto é compatível com evolução longitudinal, pois a etapa inicial pode ser focada em segmentação e classificação simples, enquanto a segunda e terceira etapas podem incluir refinamentos, análise mais detalhada e testes de técnicas mais robustas.
 
-Além disso, a literatura técnica disponível e a documentação das bibliotecas mostram que técnicas de processamento de imagens são adequadas para este tipo de aplicação, especialmente quando a entrada é imagens com objetos grandes o bastante para permitir a extração de atributos geométricos.
+Além disso, a literatura técnica disponível e a documentação das bibliotecas mostram que técnicas de processamento de imagens podem ser aplicadas a este problema quando os objetos têm pixels suficientes para permitir a extração de atributos geométricos. A adequação dessa condição para as imagens do projeto ainda será verificada.
 
 ## 9. Resultados e experimentos preliminares
 
 Até o momento, a investigação inicial foi focada na seleção do conjunto de imagens e no desenho da metodologia. Não houve implementação completa do sistema, mas os primeiros passos relevantes incluem:
 
 - organização do conjunto inicial de imagens em `images/input`;
-- inspeção visual das cenas para confirmar a presença de aves e drones;
-- validação da pertinência da abordagem de segmentação por contornos e características de forma;
+- inspeção visual das cenas para identificar exemplos e limitações aparentes, sem validar a separabilidade;
 - definição da sequência lógica de processamento para a etapa M1.
 
-Em termos de experimentação, o caminho esperado para a próxima etapa é testar:
+### Resposta ao feedback da M1
+
+O feedback apontou como prioridade imediata medir a área e as dimensões dos
+objetos nas 15 imagens, antes de ampliar o conjunto ou concluir que descritores
+geométricos podem distinguir aves e drones. Na M1, não foram medidos os objetos
+individualmente nem criada uma referência estruturada por objeto.
+
+Para atender a essa prioridade, foi criado o script
+[`src/measure_objects.py`](../src/measure_objects.py). Ele permite desenhar
+manualmente uma caixa delimitadora em cada objeto e registrar sua classe
+(`bird` ou `drone`). A partir das coordenadas anotadas, calcula largura e altura
+em pixels, área da caixa, proporção entre largura e altura, menor lado e
+percentual da imagem ocupado pela caixa. Imagens sem objeto também precisam ser
+explicitamente confirmadas como revisadas.
+
+Para executar, instale as dependências e rode:
+
+```bash
+python3 -m venv .venv
+.venv/bin/python -m pip install -r requirements.txt
+.venv/bin/python src/measure_objects.py --annotate
+.venv/bin/python src/measure_objects.py --analyze
+```
+
+As anotações são gravadas em `data/object_annotations.csv`; a execução da
+análise gera uma tabela por objeto (`results/object_measurements.csv`) e um
+resumo descritivo (`results/measurement_summary.md`). A caixa delimitadora
+inclui pixels de fundo e, portanto, sua área não equivale à área da silhueta.
+As medidas em pixels também dependem da resolução, distância e enquadramento da
+imagem.
+
+**Estado e limite da evidência:** o script está implementado, mas a anotação
+manual ainda precisa ser executada e revisada pelos integrantes. Portanto, não
+há resultados quantitativos dos objetos nem conclusão de que as classes sejam
+separáveis. A inspeção visual confirma apenas a presença de exemplos e a
+variação entre imagens; não substitui a medição nem a validação. Esse
+procedimento atende à prioridade de caracterizar o tamanho aparente dos
+objetos, mas não testa, por si só, a segmentação ou a classificação.
+
+Após essa medição, o plano experimental é testar:
 
 - conversão para escala de cinza;
 - suavização com filtro Gaussiano;
@@ -182,7 +223,7 @@ Em termos de experimentação, o caminho esperado para a próxima etapa é testa
 - cálculo de descritores geométricos por objeto;
 - comparação entre regras simples e classificadores básicos.
 
-Essa etapa preliminar é importante para confirmar se as imagens selecionadas possuem suficiente informação para sustentar a abordagem de diferenciação entre drone e ave.
+Esses experimentos devem verificar se as imagens selecionadas possuem informação suficiente para sustentar a abordagem de diferenciação entre drone e ave; até sua execução, essa viabilidade permanece uma hipótese.
 
 ## 10. Referências
 
@@ -194,7 +235,7 @@ Essa etapa preliminar é importante para confirmar se as imagens selecionadas po
 
 ## 11. Considerações finais
 
-Este projeto ainda está em fase inicial, mas já apresenta um problema bem delimitado, um conjunto de imagens coerente com a aplicação e uma estratégia técnica plausível para evolução ao longo da disciplina. O foco da etapa M1 foi consolidar a definição da proposta, validar a viabilidade da solução e preparar a base para a implementação e refinamento dos métodos nas etapas seguintes.
+Este projeto apresenta um problema delimitado, um conjunto inicial de imagens e uma estratégia técnica a investigar. A M1 consolidou a proposta; a M2 iniciou a implementação e a caracterização dos dados. A suficiência da resolução e a separabilidade das classes ainda precisam de evidência experimental.
 
 A evolução esperada para M2 e M3 inclui a implementação do pipeline proposto, comparação de métodos, refinamento da segmentação, testes com descritores mais robustos e validação da classificação de drones e aves em imagens reais.
 
