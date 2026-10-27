@@ -70,9 +70,23 @@ Dataset com imagens de pássaros (Kaggle)
 Algumas imagens foram retiradas de [Pexels](https://www.pexels.com) sob a [Licença Pexels](https://www.pexels.com/pt-br/licenca/).
 #
 
+**Objetivo e entradas/saídas**
+
+O projeto investiga como segmentar objetos em imagens de céu e se descritores
+geométricos podem ajudar a diferenciar aves e drones. A entrada é uma imagem
+JPEG em `images/input/`; a saída parcial da M2 contém máscaras binárias,
+componentes com descritores, sobreposições e tabelas comparando dois
+limiares. **A classificação final ave/drone não está implementada** e ainda
+não há evidência suficiente para afirmar que as classes são separáveis.
+
 **Estágio atual do projeto**
 
-Como complemento à proposta da M1, foi preparado um script para medir manualmente as dimensões dos objetos nas 15 imagens, conforme a prioridade indicada pelo professor. A anotação ainda precisa ser executada; não há conclusão sobre a separabilidade entre aves e drones. O procedimento, a referência ao script e suas limitações estão na seção “Resposta ao feedback da M1” da [proposta](./docs/proposta.md).
+A M2 implementa pré-processamento, limiarização global/adaptativa, abertura
+morfológica, análise de componentes conectados e extração de descritores. O
+experimento foi executado nas 15 imagens existentes. As medidas de referência
+completas para todos os objetos ainda precisam ser anotadas e revisadas. A
+resposta detalhada ao feedback, protocolo, resultados, limitações e plano M3
+está na [proposta](./docs/proposta.md).
 #
 
 **Organização do Repositório**
@@ -84,47 +98,93 @@ projeto-aplicado-longitudinal/
 ├── README.md
 ├── requirements.txt
 ├── src/
-│   └── measure_objects.py
+│   ├── measure_objects.py
+│   └── run_experiment.py
 ├── docs/
 │   └── proposta.md
+├── data/
+│   └── pilot_annotations.csv
+├── results/
+│   ├── segmentation_comparison.jpg
+│   ├── segmentation_comparison.csv
+│   ├── segmented_components.csv
+│   ├── segmentation_experiment.md
+│   └── masks/
+├── tests/
+│   └── test_run_experiment.py
 ├── images/
-│   ├── input/
-│   └── results/
-├── notebooks/           # quando aplicável
-├── tests/               # quando aplicável
-├── LICENSE              # quando aplicável
+│   └── input/
+│       ├── HighResolution/
+│       └── LowResolution/
 └── .gitignore
 ```
 #
 
-**Tecnologias Previstas**
+**Tecnologias e dependências verificadas**
 
-- Linguagem: Python
+- Python 3.12.3
+- OpenCV 4.14.0.94
+- NumPy 2.5.4
 
-- Bibliotecas: OpenCV
-
-**Medição inicial**
-
-O procedimento de anotação e interpretação está documentado na proposta. Para
-executá-lo, crie um ambiente isolado e instale as dependências:
+**Instalação**
 
 ```bash
 python3 -m venv .venv
 .venv/bin/python -m pip install -r requirements.txt
-.venv/bin/python src/measure_objects.py --annotate
-.venv/bin/python src/measure_objects.py --analyze
 ```
 
-O script grava as anotações em `data/object_annotations.csv` e gera as medidas
-em `results/`. A área reportada é a da caixa delimitadora, não a área da
-silhueta.
-#
-**Vídeo M1**
+**Experimento reproduzível da M2**
 
-Acesso em:
-[M1 - Detecção de drones e aves em imagens via PDI](https://youtu.be/x-ZY_v2nNL8?si=anc7oI2MPPl8rBiv)
-#
+Compare Otsu e o limiar adaptativo nas 15 imagens. A referência piloto incluída
+é preliminar e precisa ser revisada pela equipe:
 
-**Documentação Adicional**
+```bash
+.venv/bin/python src/run_experiment.py --annotations data/pilot_annotations.csv
+.venv/bin/python -m unittest discover -s tests -v
+```
 
-[Proposta](./docs/proposta.md)
+Para anotar manualmente todos os objetos e imagens sem objeto:
+
+```bash
+.venv/bin/python src/measure_objects.py --annotate
+.venv/bin/python src/measure_objects.py --analyze
+.venv/bin/python src/run_experiment.py --annotations data/object_annotations.csv
+```
+
+Os resultados ficam em `results/`: comparação por imagem, descritores dos
+componentes, máscaras binárias para cada configuração, figura comparativa e
+relatório experimental. A medição manual usa caixas delimitadoras, cuja área
+inclui fundo e não equivale à área da silhueta.
+
+Na execução atual, Otsu gerou 563 componentes candidatos e fração mediana de
+primeiro plano 0,516868; o método adaptativo gerou 1891 candidatos e fração
+mediana 0,002629. Estes são descritores da saída, não medidas de acurácia. No
+piloto de duas imagens, com IoU >= 0,3, os F1 foram 0,250 (Otsu) e 1,000
+(adaptativo); a amostra é pequena e a caixa de referência ainda aguarda revisão
+independente, então não sustenta uma conclusão de desempenho.
+
+**Dados**
+
+O conjunto atual tem 15 imagens (4 em `HighResolution`, 11 em `LowResolution`).
+As fontes citadas na proposta original são os datasets
+[Accurate drone shapes/segmentation](https://www.kaggle.com/datasets/metavision/accurate-drone-shapessegmentation),
+[Accurate birds shapes/segmentation](https://www.kaggle.com/datasets/metavision/accurate-birds-shapessegmentation)
+(descritos nela como CC BY 4.0) e imagens [Pexels](https://www.pexels.com/pt-br/licenca/).
+A origem individual e a licença de cada arquivo ainda não foram confirmadas.
+Consulte o [inventário de imagens](./data/image_inventory.csv) e os passos na proposta;
+não se deve presumir que todos os arquivos tenham a mesma origem ou licença.
+
+**Documentação, evidências e itens pendentes**
+
+- [Proposta e relatório técnico M2: feedback, decisões, resultados e plano M3](./docs/proposta.md)
+- [Relatório gerado pelo experimento](./results/segmentation_experiment.md)
+- [Figura da comparação](./results/segmentation_comparison.jpg)
+- [Inventário de imagens e proveniência](./data/image_inventory.csv)
+- [Roteiro do vídeo M2 para os três integrantes](./roteiro.md)
+- Vídeo M1: [Detecção de drones e aves em imagens via PDI](https://youtu.be/x-ZY_v2nNL8?si=anc7oI2MPPl8rBiv)
+- Vídeo M2: **pendente de gravação e publicação**; adicionar o link não listado após a gravação.
+- Contribuições individuais da M2: **a registrar pelos integrantes** com atividades e evidências.
+
+Foi utilizado assistente de IA generativa via Copilot SDK no VS Code para apoiar
+código, testes, anotação piloto e documentação. A declaração completa e os
+limites dessa participação estão na proposta.

@@ -1,0 +1,31 @@
+image,configuration,image_width_px,image_height_px,processed_width_px,processed_height_px,foreground_pixels,foreground_fraction,candidate_count
+images/input/HighResolution/Aves 4.jpg,otsu,4000,6000,853,1280,322025,0.29493790,44
+images/input/HighResolution/Aves 4.jpg,adaptive,4000,6000,853,1280,1984,0.00181712,18
+images/input/HighResolution/Aves 5.jpg,otsu,3456,5184,853,1280,665130,0.60918266,280
+images/input/HighResolution/Aves 5.jpg,adaptive,3456,5184,853,1280,2202,0.00201678,7
+images/input/HighResolution/Drone 3.jpg,otsu,6000,4000,1280,853,643055,0.58896450,19
+images/input/HighResolution/Drone 3.jpg,adaptive,6000,4000,1280,853,2870,0.00262859,33
+images/input/HighResolution/Drone e Aves 2.jpg,otsu,6240,4160,1280,853,481628,0.44111591,26
+images/input/HighResolution/Drone e Aves 2.jpg,adaptive,6240,4160,1280,853,4443,0.00406928,6
+images/input/LowResolution/Aves 1.jpg,otsu,3500,2333,1280,853,498134,0.45623351,65
+images/input/LowResolution/Aves 1.jpg,adaptive,3500,2333,1280,853,255,0.00023355,1
+images/input/LowResolution/Aves 2.jpg,otsu,504,187,504,187,171,0.00181436,1
+images/input/LowResolution/Aves 2.jpg,adaptive,504,187,504,187,188,0.00199474,1
+images/input/LowResolution/Aves 3.jpg,otsu,1280,720,1280,720,3632,0.00394097,23
+images/input/LowResolution/Aves 3.jpg,adaptive,1280,720,1280,720,4498,0.00488064,32
+images/input/LowResolution/Drone 1.jpg,otsu,690,1354,652,1280,558770,0.66953844,3
+images/input/LowResolution/Drone 1.jpg,adaptive,690,1354,652,1280,345,0.00041339,5
+images/input/LowResolution/Drone 2.jpg,otsu,1440,2560,720,1280,476346,0.51686849,32
+images/input/LowResolution/Drone 2.jpg,adaptive,1440,2560,720,1280,37250,0.04041884,521
+images/input/LowResolution/Drone 3.jpg,otsu,1440,2560,720,1280,573931,0.62275499,10
+images/input/LowResolution/Drone 3.jpg,adaptive,1440,2560,720,1280,23546,0.02554905,453
+images/input/LowResolution/Drone 4.jpg,otsu,1440,2560,720,1280,565898,0.61403863,18
+images/input/LowResolution/Drone 4.jpg,adaptive,1440,2560,720,1280,21689,0.02353407,364
+images/input/LowResolution/Drone 5.jpg,otsu,804,718,804,718,483691,0.83789098,8
+images/input/LowResolution/Drone 5.jpg,adaptive,804,718,804,718,479,0.00082976,3
+images/input/LowResolution/Drone 6.jpg,otsu,842,719,842,719,310932,0.51359932,13
+images/input/LowResolution/Drone 6.jpg,adaptive,842,719,842,719,9289,0.01534363,159
+images/input/LowResolution/Drone e Ave 1.jpg,otsu,1440,2560,720,1280,540797,0.58680230,15
+images/input/LowResolution/Drone e Ave 1.jpg,adaptive,1440,2560,720,1280,15979,0.01733832,288
+images/input/LowResolution/Nada 1.jpg,otsu,3024,4032,960,1280,343924,0.27988607,6
+images/input/LowResolution/Nada 1.jpg,adaptive,3024,4032,960,1280,0,0.00000000,0
