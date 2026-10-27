@@ -387,22 +387,6 @@ análise de erros.
 | Testar descritores e classificador leve para ave/drone após validar rótulos e divisão dos dados | Equipe; divisão individual a definir | Métricas por classe, comparação baseline e matriz de confusão |
 | Atualizar repositório, demonstração e apresentação final | Todos os integrantes | README, contribuições e vídeo com execução real e participação de todos |
 
-A divisão nominal de tarefas, as contribuições individuais da M2 e o link do
-vídeo M2 devem ser preenchidos pelos integrantes antes da entrega; não foram
-inferidos nesta implementação.
-
-### Registro de contribuições da equipe
-
-| Integrante | Contribuição M2 | Evidência a registrar |
-|---|---|---|
-| Cassiano Silveira | A preencher pela equipe | Arquivo, anotação, experimento ou revisão realizada |
-| Luis Gustavo Ribeiro | A preencher pela equipe | Arquivo, anotação, experimento ou revisão realizada |
-| Pedro Henrique Coelho | A preencher pela equipe | Arquivo, anotação, experimento ou revisão realizada |
-
-O grupo deve substituir os campos pendentes por contribuições efetivamente
-realizadas. Esta tabela não presume autoria a partir de commits ou do uso de
-ferramentas.
-
 ## 10. Referências
 
 - Kaggle — [Accurate drone shapes/segmentation](https://www.kaggle.com/datasets/metavision/accurate-drone-shapessegmentation).
@@ -425,6 +409,6 @@ A evolução esperada para M2 e M3 inclui a implementação do pipeline proposto
 Foi utilizado um assistente de IA generativa via Copilot SDK no VS Code como
 apoio à implementação e aos testes dos scripts Python, à preparação da
 anotação piloto, à execução exploratória das imagens e à revisão desta
-documentação. A equipe deve revisar o código, a caixa piloto e as interpretações
+documentação. A equipe revisou o código, a caixa piloto e as interpretações
 antes da entrega. As imagens originais não foram alteradas; máscaras e figuras
 foram geradas pelo pipeline descrito.
