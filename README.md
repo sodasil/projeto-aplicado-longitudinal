@@ -182,8 +182,8 @@ não se deve presumir que todos os arquivos tenham a mesma origem ou licença.
 - [Inventário de imagens e proveniência](./data/image_inventory.csv)
 - [Roteiro do vídeo M2 para os três integrantes](./roteiro.md)
 - Vídeo M1: [Detecção de drones e aves em imagens via PDI](https://youtu.be/x-ZY_v2nNL8?si=anc7oI2MPPl8rBiv)
-- Vídeo M2: **pendente de gravação e publicação**; adicionar o link não listado após a gravação.
-- Contribuições individuais da M2: **a registrar pelos integrantes** com atividades e evidências.
+- Vídeo M2: [M2 - Detecção de drones e aves em imagens via PDI](https://www.youtube.com/watch?v=g6J0GJzs50w)
+
 
 Foi utilizado assistente de IA generativa via Copilot SDK no VS Code para apoiar
 código, testes, anotação piloto e documentação. A declaração completa e os
